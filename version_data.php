@@ -190,10 +190,7 @@ for($no=0;$no<$num;$no++){
         "marjor" => $marjor[0].".".$marjor[1], // 主要版本
         "version" => $be_versions[$num-$no-1][0], // 版本号
         "beta" => (bool)($be_versions[$num-$no-1][2]), // 是否为测试版本
-        "download" => [
-            "android" => null,
-            "windows" => null, // win版本当然建议去使用 Minecraft.Win10_Launcher 啦
-        ], // 下载链接
+        "download" => null, // 下载链接
         "pe" => false, // 是否为MCPE,
         "protocol" => null, // 协议版本
     ];

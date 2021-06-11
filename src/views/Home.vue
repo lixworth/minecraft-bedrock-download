@@ -74,12 +74,16 @@ export default {
     watch:{
         type(newVal,oldVal){
             this.pull_data();
+        },
+        only_download(newVal,oldVal){
+            this.pull_data();
         }
     },
     methods:{
         pull_data(){
+            this.get_cache();
             this.loading = true;
-            this.axios.get("/api").then((res)=>{
+          /*  this.axios.get("/api").then((res)=>{
                 if(res.data.success){
 
                 }else{
@@ -87,30 +91,63 @@ export default {
                 }
             }).catch((err) => {
                 this.get_cache();
-            });
+            });*/
         },
         get_cache(){
             this.axios.get("/data.json").then((res) => {
                 const data = res.data;
                 var versions_data = [];
                 data.forEach((item) => {
-                    if(this.type == "all"){
-                        if(item.beta){
-                            versions_data.push(item.version+" [测试版]");
+                    if(this.type === "all"){
+                        if(this.only_download){
+                            if(item.download == null){
+
+                            }else{
+                                if(item.beta){
+                                    versions_data.push(item.version+" [测试版]");
+                                }else{
+                                    versions_data.push(item.version);
+                                }
+                            }
                         }else{
-                            versions_data.push(item.version);
+                            if(item.beta){
+                                versions_data.push(item.version+" [测试版]");
+                            }else{
+                                versions_data.push(item.version);
+                            }
                         }
-                    }else if(this.type == "stable"){
-                        if(!item.beta){
-                            versions_data.push(item.version);
+
+                    }else if(this.type === "stable"){
+                        if(this.only_download) {
+                            if (item.download == null) {
+
+                            } else {
+                                if (!item.beta) {
+                                    versions_data.push(item.version);
+                                }
+                            }
+                        }else{
+                            if (!item.beta) {
+                                versions_data.push(item.version);
+                            }
                         }
-                    }else if(this.type == "beta"){
-                        if(item.beta){
-                            versions_data.push(item.version);
+                    }else if(this.type === "beta"){
+                        if(this.only_download) {
+                            if (item.download == null) {
+
+                            } else {
+                                if (item.beta) {
+                                    versions_data.push(item.version);
+                                }
+                            }
+                        }else{
+                            if (item.beta) {
+                                versions_data.push(item.version);
+                            }
                         }
                     }
-
                 });
+
                 this.versions = versions_data;
                 this.loading = false;
 
