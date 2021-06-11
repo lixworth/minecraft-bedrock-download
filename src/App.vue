@@ -1,32 +1,58 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+    <v-app>
+<!--        <v-app-bar
+            app
+            elevation="0"
+        >
+            &lt;!&ndash; 侧边栏按钮 &ndash;&gt;
+            <v-toolbar-title onclick="window.location.href = '/'" style="cursor:pointer">
+               Cattery
+            </v-toolbar-title>
+
+            <v-progress-linear
+                :active="this.$store.state.loading"
+                indeterminate
+                absolute
+                bottom
+                color="deep-purple accent-4"
+            ></v-progress-linear>
+
+            <v-spacer />
+
+            <v-btn icon>
+                <v-icon mdi>mdi-github</v-icon>
+            </v-btn>
+
+
+        </v-app-bar>-->
+        <banner/>
+
+        <v-main class="main-background">
+            <router-view/>
+        </v-main>
+    </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
-}
+import Banner from "./components/Banner";
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+export default {
+    name: 'App',
+    components:{
+        'banner': Banner
+    },
+    data: () => ({
+        barItem: {
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+        },
+    }),
+};
+</script>
+
+<style scoped>
+.main-background {
+    background-size: initial;
+    background: rgb(0, 0, 0) url("~@/assets/img_2.png") repeat fixed;
 }
 </style>
