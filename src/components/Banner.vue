@@ -23,6 +23,9 @@
                             <div class="banner-title font-weight-black white--text">
                                 Minecraft: Bedrock Edition
                             </div>
+                            <p class="pt-5">记载 MCBE 与 MCPE 多个版本游戏客户端</p>
+                            <v-btn outlined to="/" active-class="primary">主页</v-btn> {{'\u3000'}}
+                            <v-btn outlined to="/about" active-class="primary">关于</v-btn> {{'\u3000'}}
                         </div>
                     </v-col>
                 </v-row>

@@ -12,7 +12,16 @@
                 <v-card :loading="loading" :disabled="loading">
                     <v-card-title>
                         <span class="subtitle-1">选择下载版本</span>
+
+                        <v-spacer></v-spacer>
+                        <v-switch
+                            v-model="only_download"
+                            label="仅显示可下载"
+                            color="primary"
+                            hide-details
+                        ></v-switch>
                     </v-card-title>
+
                     <v-card-text>
                         <v-radio-group
                             v-model="type"
@@ -56,7 +65,8 @@ export default {
             "正在拉取数据"
         ],
         type: "stable",
-        loading: false
+        loading: false,
+        only_download: false
     }),
     created() {
         this.pull_data();
