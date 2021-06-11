@@ -38,16 +38,27 @@ export default {
         items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     }),
     created() {
-        this.axios.get("/api").then().catch((err) => {
-           this.axios.get("/data.json").then((res) => {
-               const data = res.data;
-               var versions_data = [];
-               data.forEach((item) => {
-                   versions_data.push(item.version);
-               });
-               this.versions = versions_data;
-           })
+        this.axios.get("/api").then((res)=>{
+            if(res.data.success){
+
+            }else{
+                this.get_cache();
+            }
+        }).catch((err) => {
+            this.get_cache();
         });
+    },
+    methods:{
+        get_cache(){
+            this.axios.get("/data.json").then((res) => {
+                const data = res.data;
+                var versions_data = [];
+                data.forEach((item) => {
+                    versions_data.push(item.version);
+                });
+                this.versions = versions_data;
+            })
+        }
     }
 
 }
