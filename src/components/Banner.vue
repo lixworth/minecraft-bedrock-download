@@ -10,7 +10,7 @@
         <v-img
             src="~@/assets/img.png"
             gradient="to top, rgba(0, 0, 1, 0), rgba(0, 0, 0, 0.33)"
-            height="40vh"
+            height="400px"
         >
             <div class="fill-height mt-0 mt-md-n15 d-flex mx-auto">
                 <v-row
