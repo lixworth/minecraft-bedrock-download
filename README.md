@@ -1,19 +1,9 @@
-# cattery-mcbe
+English | [简体中文](README_zh.md)
 
-## Project setup
-```
-yarn install
-```
+# Minecraft Bedrock & Pocket Edition Multi-versions download
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+![License](https://img.shields.io/github/license/lixworth/minecraft-bedrock-download?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/lixworth/minecraft-bedrock-download?style=flat-square)
 
-### Compiles and minifies for production
-```
-yarn build
-```
+> :construction: Work in progress :construction:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
