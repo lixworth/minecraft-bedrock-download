@@ -46,9 +46,19 @@
                             ></v-radio>
                         </v-radio-group>
                         <v-select
+                            v-model="marjor_version"
+                            :items="marjor_versions"
+                            menu-props="auto"
+                            label="选择大版本 （可选）"
+                            hide-details
+                            solo
+                        ></v-select>
+                        <br>
+                        <v-select
                             :items="versions"
                             :label="versions[0]"
                             v-model="select_version"
+                            menu-props="auto"
                             solo
                         ></v-select>
                         <p>大版本: {{ (this.info.pe)? "便携版" : "基岩版"}} {{this.info.marjor}}</p>
@@ -82,7 +92,9 @@ export default {
         only_download: false,
         info: null,
         cache_data: null,
-        select_version: null
+        select_version: null,
+        marjor_version: null,
+        marjor_versions: null
     }),
     created() {
         this.pull_data(true);
@@ -94,33 +106,56 @@ export default {
 
         },
         only_download(newVal,oldVal){
+            this.get_info(newVal)
             this.pull_data();
         },
         select_version(newVal,oldVal){
             this.loading = true;
             this.get_info(newVal)
+        },
+        marjor_version(newVal,oldVal){
+            this.loading = true;
+            this.change_marjor(newVal);
         }
     },
     methods:{
         pull_data(first = false){
             this.get_cache(first);
             this.loading = true;
-          /*  this.axios.get("/api").then((res)=>{
-                if(res.data.success){
+            /*  this.axios.get("/api").then((res)=>{
+                  if(res.data.success){
 
-                }else{
-                    this.get_cache();
-                }
-            }).catch((err) => {
-                this.get_cache();
-            });*/
+                  }else{
+                      this.get_cache();
+                  }
+              }).catch((err) => {
+                  this.get_cache();
+              });*/
+        },
+        change_marjor(version){
+            this.get_cache(false,version)
         },
         get_cache(first = false){
             this.axios.get("/data.json").then((res) => {
                 const data = res.data;
                 this.cache_data = data;
                 var versions_data = [];
-                data.forEach((item) => {
+                var marjor_versions_data = [
+                    '显示全部'
+                ];
+                var marjor_data = [];
+                if(this.marjor_version !== null && this.marjor_version !== "显示全部"){
+                    data.forEach((item) => {
+                        if(item.marjor == this.marjor_version){
+                            marjor_data.push(item);
+                        }
+                    })
+                }else{
+                    marjor_data = data;
+                }
+                marjor_data.forEach((item) => {
+                    marjor_versions_data.push(item.marjor);
+
                     if(this.type === "all"){
                         if(this.only_download){
                             if(item.download == null){
@@ -188,17 +223,18 @@ export default {
                 this.versions = versions_data;
                 this.loading = false;
                 if(first){
+                    this.marjor_versions = [...new Set(marjor_versions_data)];
                     this.get_info(versions_data[0]);
                 }
             })
         },
         get_info(version){
             this.cache_data.forEach((item) => {
-               if(item.version === version){
-                   this.info = item;
-                   this.loading = false
+                if(item.version === version){
+                    this.info = item;
+                    this.loading = false
 
-               }
+                }
             });
         }
     }
