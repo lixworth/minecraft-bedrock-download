@@ -26,6 +26,7 @@
                         </ul>
                         <br>
                         <p class="font-weight-black">Github仓库地址: <a href="https://github.com/lixworth/minecraft-bedrock-download">lixworth/minecraft-bedrock-download</a></p>
+                        <p>如果本站对你有帮助，请给颗小星星吧 </p>
                         <p>版本更新依赖于社区，欢迎提交 pull request 。关于项目部署帮助与协作规范，请查看 <a href="https://github.com/lixworth/minecraft-bedrock-download/blob/main/README.md">README.md</a>。
                             特殊贡献：Ran </p>
                         <p>项目使用 <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License</a> 目的仅限交流与学习，任何用处均与贡献者无关。</p>

@@ -69,6 +69,7 @@
                         <p>文件大小: {{this.info.size}}</p>
                         <p>更新时间: {{this.info.time}}</p>
                         <span>原始数据: <pre>{{this.info}}</pre></span>
+
                     </v-card-text>
                 </v-card>
             </v-col>
