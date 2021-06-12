@@ -42,6 +42,10 @@ $pages = substr($page->item(0)->textContent,-2);
 
 $result_data = [];
 
+// 协议版本添加
+$protocols = [
+    "1.17.0.02" => "440"
+];
 for ($n=1;$n<$pages;$n++){
 
     $data = @$dom->loadHTML(file_get_contents("https://www.118pan.com/o11286&pg=".$n));
@@ -52,6 +56,8 @@ for ($n=1;$n<$pages;$n++){
     for ($i=0;$i<$num->length;$i++){
         $result = $xpath->query('//*[@id="table_files"]/tbody/tr['.($i+1).']/td[1]/div/a');
         $href = $xpath->query('//*[@id="table_files"]/tbody/tr['.($i+1).']/td[1]/div/a/@href');
+        $size = $xpath->query('//*[@id="table_files"]/tbody/tr['.($i+1).']/td[3]');
+        $time = $xpath->query('//*[@id="table_files"]/tbody/tr['.($i+1).']/td[4]');
         $file_name = substr($result->item(0)->textContent,0,strlen($result->item(0)->textContent)-4);
         if(substr($file_name,-4) === "Beta"){
             $beta = true;
@@ -66,13 +72,20 @@ for ($n=1;$n<$pages;$n++){
         }else{
             $pe = false;
         }
+        if(isset($protocols[$version])){
+            $protocol = $protocols[$version];
+        }else{
+            $protocol = null;
+        }
         $result_data[] = [
             "marjor" => $marjor[0].".".$marjor[1], // 主要版本
             "beta" => (bool)$beta, // 是否为测试版本
             "version" => $version,
             "download" => "https://www.118pan.com/".$href->item(0)->textContent,
             "pe" => $pe, // 是否为MCPE,
-            "protocol" => null, // 协议版本
+            "protocol" => $protocol, // 协议版本
+            "time" => trim($time->item(0)->textContent),
+            "size" => $size->item(0)->textContent,
         ];
 
     }

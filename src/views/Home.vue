@@ -56,7 +56,9 @@
                         <p v-if="this.info.protocol !== null">协议版本: {{this.info.protocol}}</p>
                         <p>类型: {{ (this.info.beta)? "测试" : "正式版"}}</p>
                         <p>下载地址: <a :href="this.info.download" target="_blank">{{this.info.download}}</a></p>
-                        <span>原始数据: <pre> {{this.info}}</pre></span>
+                        <p>文件大小: {{this.info.size}}</p>
+                        <p>更新时间: {{this.info.time}}</p>
+                        <span>原始数据: <pre>{{this.info}}</pre></span>
                     </v-card-text>
                 </v-card>
             </v-col>
